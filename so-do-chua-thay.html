@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sơ đồ tham quan Chùa Thầy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<style>
+  :root{
+    --paper:#F1ECDF;
+    --ink:#2B2620;
+    --ink-soft:#5C5647;
+    --pine:#2F4A3D;
+    --pine-deep:#1D2F27;
+    --gold:#AD8A4E;
+    --gold-soft:#E4D4AC;
+    --line:#D8CDAE;
+    --card:#FBF8F1;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;background:var(--pine-deep);font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);}
+  .frame{display:flex;height:100vh;width:100vw;overflow:hidden;}
+
+  /* Sidebar - narrow, scroll list, unchanged style */
+  .sidebar{
+    width:230px;
+    min-width:230px;
+    background:var(--paper);
+    border-right:1px solid var(--gold);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .sidebar-head{
+    padding:18px 16px 12px;
+    border-bottom:1px solid var(--line);
+    background:var(--pine);
+    color:var(--gold-soft);
+  }
+  .sidebar-head .eyebrow{
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    opacity:.8;
+    margin:0 0 4px;
+  }
+  .sidebar-head h1{
+    font-family:Georgia,'Times New Roman',serif;
+    font-size:17px;
+    font-weight:500;
+    margin:0;
+    line-height:1.35;
+    color:#FBF8F1;
+  }
+  .sidebar-head p{
+    font-size:11px;
+    margin:8px 0 0;
+    color:var(--gold-soft);
+    opacity:.85;
+    line-height:1.5;
+  }
+  .stops{
+    overflow-y:auto;
+    flex:1;
+    padding:6px 0 16px;
+  }
+  .stop{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 14px;
+    cursor:pointer;
+    border-left:3px solid transparent;
+    transition:background .15s, border-color .15s;
+  }
+  .stop:hover, .stop.active{
+    background:var(--card);
+    border-left-color:var(--gold);
+  }
+  .stop-num{
+    flex:0 0 auto;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:var(--pine);
+    color:#FBF8F1;
+    font-size:10.5px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:1px;
+  }
+  .stop-body h3{
+    font-size:12.5px;
+    margin:0 0 2px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  .stop-body p{
+    font-size:10.5px;
+    margin:0;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .stop-body .tag{
+    display:inline-block;
+    margin-top:4px;
+    font-size:9px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:1px 6px;
+    border-radius:3px;
+    background:var(--gold-soft);
+    color:#5a4620;
+  }
+  .legend{
+    padding:10px 14px 14px;
+    border-top:1px solid var(--line);
+    font-size:10px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .legend span.dot{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    margin-right:6px;
+  }
+  .dot.chan{background:#2F4A3D;}
+  .dot.nui{background:#AD8A4E;}
+  .dot.duong{background:#8A8370;}
+
+  /* Map */
+  .map-wrap{flex:1;position:relative;}
+  #map{width:100%;height:100%;}
+
+  .leaflet-popup-content-wrapper{
+    background:var(--card);
+    border-radius:6px;
+    color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .leaflet-popup-content{font-size:12.5px;line-height:1.5;margin:10px 12px;}
+  .leaflet-popup-content b{font-family:Georgia,serif;font-size:13.5px;}
+  .leaflet-popup-tip{background:var(--card);}
+
+  .scale-note{
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    background:rgba(251,248,241,.92);
+    padding:4px 10px;
+    border-radius:4px;
+    font-size:10px;
+    color:var(--ink-soft);
+    z-index:500;
+    border:1px solid var(--line);
+  }
+
+  @media (max-width: 640px){
+    .sidebar{width:170px;min-width:170px;}
+    .stop-body h3{font-size:11.5px;}
+    .stop-body p{font-size:9.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <a href="du-lich.html" style="display:inline-block;font-size:10.5px;color:var(--gold-soft);text-decoration:none;opacity:.85;margin-bottom:8px;">&larr; Sơ Đồ Quốc Oai</a>
+      <p class="eyebrow">Di tích quốc gia đặc biệt</p>
+      <h1>Chùa Thầy &amp; núi Sài Sơn</h1>
+      <p>Lộ trình một mạch, đúng tỉ lệ khoảng cách thật</p>
+    </div>
+    <div class="stops" id="stopList"></div>
+    <div class="legend">
+      <div><span class="dot chan"></span>Khu chân núi &mdash; đi bằng phẳng</div>
+      <div><span class="dot nui"></span>Khu trên núi &mdash; leo bậc đá</div>
+      <div><span class="dot duong"></span>Đường / bãi xe</div>
+    </div>
+  </aside>
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="scale-note">Bản đồ zoom được &mdash; tọa độ GPS thực, xem thanh tỉ lệ góc dưới</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const stops = [
+  {
+    name: "Đường Từ Đạo Hạnh",
+    sub: "Trục đường chính dẫn vào khu di tích",
+    lat: 21.0213855, lng: 105.6462976,
+    zone: "duong"
+  },
+  {
+    name: "Bãi đỗ xe Chùa Thầy",
+    sub: "Gửi xe, cách cổng khoảng 300-400m",
+    lat: 21.0195691, lng: 105.6430943,
+    zone: "duong"
+  },
+  {
+    name: "Chùa Long Đẩu",
+    sub: "Nằm đối diện Chùa Cả, cách nhau bởi hồ Long Trì",
+    lat: 21.0211253, lng: 105.6455942,
+    zone: "chan"
+  },
+  {
+    name: "Cầu Nhật Nguyệt Tiên Kiều",
+    sub: "Hai cầu \u201cthượng gia hạ kiều\u201d bắc qua hồ Long Trì (vị trí ước lượng)",
+    lat: 21.0226502, lng: 105.645515,
+    zone: "chan"
+  },
+  {
+    name: "Thủy Đình",
+    sub: "Giữa hồ Long Trì, nơi múa rối nước",
+    lat: 21.0222888, lng: 105.6456008,
+    zone: "chan"
+  },
+  {
+    name: "Cổng vào Chùa",
+    sub: "Mua vé tham quan tại đây",
+    lat: 21.023018, lng: 105.6462825,
+    zone: "chan"
+  },
+  {
+    name: "Chùa Cả",
+    sub: "Cụm Hạ - Trung - Thượng, kiến trúc chính thế kỷ XVII",
+    lat: 21.0228551, lng: 105.6454905,
+    zone: "chan"
+  },
+  {
+    name: "Chùa Cao",
+    sub: "Còn gọi Đỉnh Sơn Tự, lưng chừng núi (vị trí ước lượng)",
+    lat: 21.0233, lng: 105.6438,
+    zone: "nui"
+  },
+  {
+    name: "Đền Thượng",
+    sub: "Thờ Từ Đạo Hạnh, gần hang Cắc Cớ",
+    lat: 21.0235556, lng: 105.6420874,
+    zone: "nui"
+  },
+  {
+    name: "Chùa Một Mái (Bối Am)",
+    sub: "Chùa dựa vách đá, chỉ một mái ngói",
+    lat: 21.0237763, lng: 105.6410299,
+    zone: "nui"
+  }
+];
+
+const zoneColor = { chan: "#2F4A3D", nui: "#AD8A4E", duong: "#8A8370" };
+
+const listEl = document.getElementById('stopList');
+stops.forEach((s,i)=>{
+  const div = document.createElement('div');
+  div.className = 'stop';
+  div.id = 'stop-'+i;
+  const zoneLabel = s.zone === 'chan' ? 'chân núi' : (s.zone === 'nui' ? 'trên núi' : 'đường / bãi xe');
+  div.innerHTML = `
+    <div class="stop-num">${i+1}</div>
+    <div class="stop-body">
+      <h3>${s.name}</h3>
+      <p>${s.sub}</p>
+      <span class="tag">${zoneLabel}</span>
+    </div>`;
+  div.addEventListener('click', ()=>focusStop(i));
+  listEl.appendChild(div);
+});
+
+const map = L.map('map', { zoomControl: true }).setView([21.0220, 105.6440], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+L.control.scale({metric:true, imperial:false, position:'bottomright'}).addTo(map);
+
+const markers = [];
+const latlngs = stops.map(s => [s.lat, s.lng]);
+
+L.polyline(latlngs, {
+  color: '#AD8A4E',
+  weight: 3,
+  opacity: 0.85,
+  dashArray: '2 8',
+  lineCap: 'round'
+}).addTo(map);
+
+stops.forEach((s,i)=>{
+  const color = zoneColor[s.zone];
+  const icon = L.divIcon({
+    className: '',
+    html: `<div style="
+      background:${color};
+      color:#FBF8F1;
+      width:24px;height:24px;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:12px;font-weight:600;
+      border:2px solid #FBF8F1;
+      box-shadow:0 1px 3px rgba(0,0,0,.35);
+      font-family:Helvetica,Arial,sans-serif;">${i+1}</div>`,
+    iconSize:[24,24],
+    iconAnchor:[12,12]
+  });
+  const m = L.marker([s.lat, s.lng], {icon}).addTo(map);
+  m.bindPopup(`<b>${s.name}</b><br>${s.sub}`);
+  m.on('click', ()=>focusStop(i, false));
+  markers.push(m);
+});
+
+function focusStop(i, doPan=true){
+  document.querySelectorAll('.stop').forEach(el=>el.classList.remove('active'));
+  document.getElementById('stop-'+i).classList.add('active');
+  if(doPan){
+    map.flyTo([stops[i].lat, stops[i].lng], 18, {duration:0.6});
+    markers[i].openPopup();
+  }
+}
+
+const bounds = L.latLngBounds(latlngs);
+map.fitBounds(bounds, {padding:[40,40]});
+</script>
+</body>
+</html>

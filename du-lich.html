@@ -26,17 +26,40 @@
     <p class="page-subtitle">Danh thắng và di tích lịch sử — chùa cổ, núi non gắn với huyện Quốc Oai và vùng phụ cận.</p>
   </header>
 
-  <div class="map-frame">
-    <aside class="sidebar cat-dl">
-      <h2>Danh thắng &amp; Di tích</h2>
-      <ul>
-        <li>Chùa Thầy &amp; Núi Sài Sơn — Di tích quốc gia đặc biệt</li>
-        <li>Chùa Tây Phương — Thạch Thất (giáp ranh)</li>
-        <li>Chùa Trăm Gian — Chương Mỹ (giáp ranh)</li>
-      </ul>
-    </aside>
-    <div id="map"></div>
-  </div>
+  <main class="cards-grid">
+    <div class="place-card cat-dl">
+      <h3 class="place-name">Chùa Thầy &amp; Núi Sài Sơn</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Xã Sài Sơn, Huyện Quốc Oai, Hà Nội</p>
+      <p class="place-info"><strong>Xếp hạng:</strong> Di tích quốc gia đặc biệt</p>
+      <p class="place-info"><strong>Gồm:</strong> Chùa Cả, Chùa Cao, Đền Thượng, Chùa Một Mái, hang Cắc Cớ...</p>
+      <a href="so-do-chua-thay.html" class="map-link">🗺️ Xem sơ đồ chi tiết</a>
+    </div>
+
+    <div class="place-card cat-dl">
+      <h3 class="place-name">Chùa Tây Phương</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Thạch Xá, Huyện Thạch Thất (giáp ranh Quốc Oai)</p>
+      <p class="place-info"><strong>Xếp hạng:</strong> Di tích quốc gia đặc biệt</p>
+      <p class="place-info"><strong>Nổi bật:</strong> Hệ tượng La Hán bằng gỗ thế kỷ XVIII</p>
+      <a href="#map-tong-quan" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
+
+    <div class="place-card cat-dl">
+      <h3 class="place-name">Chùa Trăm Gian</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Tiên Phương, Huyện Chương Mỹ (giáp ranh Quốc Oai)</p>
+      <p class="place-info"><strong>Xếp hạng:</strong> Di tích quốc gia</p>
+      <p class="place-info"><strong>Nổi bật:</strong> Kiến trúc cổ gần 1000 năm tuổi</p>
+      <a href="#map-tong-quan" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
+
+    <!-- Chị copy thêm .place-card tại đây nếu cần -->
+  </main>
+
+  <section id="map-tong-quan" class="section" style="padding-top:0;">
+    <div class="container">
+      <h2 class="section-title">Bản đồ tổng quan các điểm du lịch</h2>
+    </div>
+    <div id="map" style="height:420px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);"></div>
+  </section>
 
   <footer class="site-footer">
     <strong>Sơ Đồ Quốc Oai</strong> · Cổng thông tin tra cứu địa danh huyện Quốc Oai · 2026
