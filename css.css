@@ -1,74 +1,188 @@
-:root {
-  --primary: #1D2F27;
-  --secondary: #2F4A3D;
-  --accent: #AD8A4E;
-  --bg-light: #F1ECDF;
-  --text-dark: #2B2620;
-}
+HTML
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ quan Hành chính - Sơ đồ Quốc Oai</title>
+    <!-- Nhớ nối đúng file CSS.CSS để menu và font chữ đẹp -->
+    <link rel="stylesheet" href="css.css">
+    <style>
+        /* Phong cách riêng cho trang con đẹp mắt hơn */
+        :root {
+            --primary-color: #1b4332; /* Màu xanh đậm trang chủ */
+            --accent-color: #2d6a4f;  /* Màu xanh nhạt */
+            --bg-color: #f4f6f9;      /* Màu nền xám nhạt */
+            --card-bg: #ffffff;      /* Màu nền thẻ trắng */
+            --text-main: #333333;    /* Màu chữ chính */
+            --text-sub: #666666;     /* Màu chữ phụ */
+        }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: var(--text-dark); }
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+        }
 
-/* Thanh điều hướng Navbar chính */
-.navbar {
-  background: var(--primary);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 60px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+        /* Phần Header và Nav đã được đồng bộ trong file CSS.CSS,
+           nhưng ở đây ta tạo thêm container để nội dung chính đẹp hơn */
+        .page-header {
+            background-color: var(--card-bg);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
 
-.navbar .logo {
-  color: #fff;
-  font-size: 17px;
-  font-weight: bold;
-  text-decoration: none;
-}
+        .page-title {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 8px;
-}
+        .page-subtitle {
+            color: var(--text-sub);
+            margin-top: 10px;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-.nav-links a {
-  color: #E4D4AC;
-  text-decoration: none;
-  font-size: 13.5px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: 0.2s;
-}
+        /* Lưới hiển thị danh sách thẻ (Grid) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+        }
 
-.nav-links a:hover, .nav-links a.active {
-  background: var(--accent);
-  color: #fff;
-}
+        /* Phong cách thẻ địa điểm (Card) */
+        .agency-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Hiệu ứng đổ bóng nhẹ */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng di chuột */
+            border-left: 6px solid var(--primary-color); /* Thanh màu xanh bên trái */
+            position: relative;
+            overflow: hidden;
+        }
 
-/* Khung hiển thị giao diện Bản đồ + Danh sách */
-.map-frame {
-  display: flex;
-  height: calc(100vh - 60px);
-}
+        .agency-card:hover {
+            transform: translateY(-5px); /* Nhấc thẻ lên khi di chuột */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
 
-.sidebar {
-  width: 300px;
-  min-width: 300px;
-  background: var(--bg-light);
-  border-right: 1px solid #D8CDAE;
-  padding: 15px;
-  overflow-y: auto;
-}
+        .agency-name {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
 
-.sidebar h2 {
-  font-size: 18px;
-  color: var(--primary);
-  margin-bottom: 10px;
-}
+        .agency-info {
+            margin: 8px 0;
+            font-size: 0.95em;
+            color: var(--text-main);
+        }
 
-#map {
-  flex: 1;
-  height: 100%;
-}
+        .agency-info strong {
+            color: #000;
+        }
+
+        /* Nút xem vị trí trên bản đồ */
+        .map-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: var(--accent-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+
+        .map-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Biểu tượng vị trí */
+        .icon-pin {
+            margin-right: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- THANH MENU ĐẦU TRANG (Đã có trong CSS.CSS) -->
+    <header class="header">
+        <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
+        <nav class="nav">
+            <a href="co-quan-hanh-chinh.html" class="active">Cơ quan hành chính</a>
+            <a href="benh-vien.html">Bệnh viện</a>
+            <a href="truong-hoc.html">Trường học các cấp</a>
+            <a href="tham-quan-du-lich.html">Điểm tham quan du lịch</a>
+        </nav>
+    </header>
+
+    <!-- PHẦN TIÊU ĐỀ TRANG CON -->
+    <div class="page-header">
+        <h1 class="page-title">CƠ QUAN HÀNH CHÍNH</h1>
+        <p class="page-subtitle">Danh sách địa chỉ và thông tin liên hệ các cơ quan nhà nước, đơn vị hành chính công trên địa bàn huyện Quốc Oai.</p>
+    </div>
+
+    <!-- NỘI DUNG CHÍNH: DANH SÁCH THẺ (CARDS GRID) -->
+    <main class="cards-grid">
+        
+        <!-- THẺ 1 -->
+        <div class="agency-card">
+            <h3 class="agency-name">UBND Huyện Quốc Oai</h3>
+            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843110</p>
+            <p class="agency-info"><strong>Lĩnh vực:</strong> Quản lý nhà nước cấp huyện</p>
+            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
+        </div>
+
+        <!-- THẺ 2 -->
+        <div class="agency-card">
+            <h3 class="agency-name">Công an Huyện Quốc Oai</h3>
+            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843113</p>
+            <p class="agency-info"><strong>Chức năng:</strong> Đảm bảo an ninh trật tự</p>
+            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
+        </div>
+
+        <!-- THẺ 3 -->
+        <div class="agency-card">
+            <h3 class="agency-name">Trung tâm Một cửa Huyện</h3>
+            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+            <p class="agency-info"><strong>Chức năng:</strong> Tiếp nhận & trả kết quả thủ tục hành chính</p>
+            <p class="agency-info"><strong>Dịch vụ:</strong> Công chứng, Đất đai, Kinh doanh...</p>
+            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
+        </div>
+
+        <!-- THẺ 4 -->
+        <div class="agency-card">
+            <h3 class="agency-name">Bảo hiểm Xã hội Huyện Quốc Oai</h3>
+            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843115</p>
+            <p class="agency-info"><strong>Chức năng:</strong> Quản lý BHXH, BHYT</p>
+            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
+        </div>
+
+        <!-- Chị có thể copy thêm thẻ mới tại đây -->
+
+    </main>
+
+</body>
+</html>
