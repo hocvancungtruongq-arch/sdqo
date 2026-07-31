@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tham quan Du lịch - Sơ đồ Quốc Oai</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
+    <ul class="nav-links">
+      <li><a href="co-quan-hanh-chinh.html">Cơ quan hành chính</a></li>
+      <li><a href="benh-vien.html">Bệnh viện</a></li>
+      <li><a href="truong-hoc.html">Trường học các cấp</a></li>
+      <li><a href="du-lich.html" class="active">Điểm tham quan du lịch</a></li>
+      <li><a href="khac.html">Khác</a></li>
+    </ul>
+  </nav>
+
+  <div class="map-frame">
+    <aside class="sidebar">
+      <h2>Danh thắng & Di tích</h2>
+      <ul>
+        <li>Chùa Thầy & Núi Sài Sơn</li>
+        <li>Chùa Tây Phương</li>
+        <li>Chùa Trăm Gian</li>
+      </ul>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+    const map = L.map('map').setView([21.0150, 105.6300], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    
+    // Các điểm di tích
+    L.marker([21.0228, 105.6455]).addTo(map).bindPopup("<b>Chùa Thầy & Núi Sài Sơn</b>");
+    L.marker([21.0281, 105.5968]).addTo(map).bindPopup("<b>Chùa Tây Phương</b>");
+    L.marker([20.9572, 105.6608]).addTo(map).bindPopup("<b>Chùa Trăm Gian</b>");
+  </script>
+</body>
+</html>

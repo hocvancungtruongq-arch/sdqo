@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Cơ quan hành chính - Sơ đồ Quốc Oai</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
+    <ul class="nav-links">
+      <li><a href="co-quan-hanh-chinh.html" class="active">Cơ quan hành chính</a></li>
+      <li><a href="benh-vien.html">Bệnh viện</a></li>
+      <li><a href="truong-hoc.html">Trường học các cấp</a></li>
+      <li><a href="du-lich.html">Điểm tham quan du lịch</a></li>
+      <li><a href="khac.html">Khác</a></li>
+    </ul>
+  </nav>
+
+  <div class="map-frame">
+    <aside class="sidebar">
+      <h2>Cơ quan Hành chính</h2>
+      <p>Danh sách các UBND, Công an, Trung tâm hành chính công...</p>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+    const map = L.map('map').setView([20.9944, 105.6401], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    L.marker([20.9944, 105.6401]).addTo(map).bindPopup("<b>UBND Huyện Quốc Oai</b>");
+  </script>
+</body>
+</html>

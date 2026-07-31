@@ -1,0 +1,11 @@
+trang-web-quoc-oai/
+├── index.html              (Trang chủ tổng quan)
+├── co-quan-hanh-chinh.html (Mục 1: Các cơ quan hành chính)
+├── benh-vien.html          (Mục 2: Bệnh viện & Trạm xá các xã)
+├── truong-hoc.html         (Mục 3: Mầm non, Cấp 1, Cấp 2, Cấp 3)
+├── du-lich.html            (Mục 4: Sơ đồ Chùa Thầy, Chùa Tây Phương, Chùa Trăm Gian...)
+├── khac.html               (Mục 5: Chợ, bưu điện, bãi xe, khu dân cư...)
+├── css/
+│   └── style.css           (Định dạng giao diện chung)
+└── js/
+    └── main.js             (Xử lý bản đồ và hiệu ứng)
