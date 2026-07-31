@@ -1,188 +1,378 @@
-HTML
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cơ quan Hành chính - Sơ đồ Quốc Oai</title>
-    <!-- Nhớ nối đúng file CSS.CSS để menu và font chữ đẹp -->
-    <link rel="stylesheet" href="css.css">
-    <style>
-        /* Phong cách riêng cho trang con đẹp mắt hơn */
-        :root {
-            --primary-color: #1b4332; /* Màu xanh đậm trang chủ */
-            --accent-color: #2d6a4f;  /* Màu xanh nhạt */
-            --bg-color: #f4f6f9;      /* Màu nền xám nhạt */
-            --card-bg: #ffffff;      /* Màu nền thẻ trắng */
-            --text-main: #333333;    /* Màu chữ chính */
-            --text-sub: #666666;     /* Màu chữ phụ */
-        }
+/* ==========================================================================
+   SƠ ĐỒ QUỐC OAI — hệ thống thiết kế dùng chung
+   Ý tưởng: một "sổ tay địa chính" của huyện — nền giấy ấm, tiêu đề chữ serif
+   như con dấu hành chính, 5 sắc màu chuyên mục làm chỉ dẫn xuyên suốt.
+   ========================================================================== */
 
-        body {
-            background-color: var(--bg-color);
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-main);
-        }
+:root {
+  --primary: #1b4332;       /* xanh rêu đậm — thương hiệu chính */
+  --primary-light: #2d6a4f; /* xanh rêu nhạt — hover, nhấn */
+  --paper: #FBF8F1;         /* nền giấy ấm */
+  --card: #ffffff;
+  --ink: #22302a;           /* màu chữ chính, ấm hơn đen thuần */
+  --ink-soft: #5b665f;      /* chữ phụ */
+  --line: #E4DCC7;          /* viền / chia tách */
+  --gold: #AD8A4E;
 
-        /* Phần Header và Nav đã được đồng bộ trong file CSS.CSS,
-           nhưng ở đây ta tạo thêm container để nội dung chính đẹp hơn */
-        .page-header {
-            background-color: var(--card-bg);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 30px;
-        }
+  /* 5 sắc chuyên mục — dùng nhất quán cho badge, viền trái thẻ, chấm bản đồ */
+  --c-hc: #B3492B;  /* Hành chính — đỏ gạch */
+  --c-yt: #2F7A52;  /* Y tế — xanh lá */
+  --c-gd: #2A6F97;  /* Giáo dục — xanh dương */
+  --c-dl: #AD8A4E;  /* Du lịch — vàng đồng */
+  --c-kh: #6B7280;  /* Khác — xám */
 
-        .page-title {
-            color: var(--primary-color);
-            margin: 0;
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
 
-        .page-subtitle {
-            color: var(--text-sub);
-            margin-top: 10px;
-            font-size: 1.1em;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+  --radius: 10px;
+  --shadow: 0 2px 10px rgba(27, 67, 50, 0.08);
+  --shadow-hover: 0 10px 26px rgba(27, 67, 50, 0.14);
+}
 
-        /* Lưới hiển thị danh sách thẻ (Grid) */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
-        }
+* { box-sizing: border-box; }
 
-        /* Phong cách thẻ địa điểm (Card) */
-        .agency-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Hiệu ứng đổ bóng nhẹ */
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng di chuột */
-            border-left: 6px solid var(--primary-color); /* Thanh màu xanh bên trái */
-            position: relative;
-            overflow: hidden;
-        }
+html { scroll-behavior: smooth; }
 
-        .agency-card:hover {
-            transform: translateY(-5px); /* Nhấc thẻ lên khi di chuột */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
 
-        .agency-name {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            font-weight: bold;
-        }
+a { color: inherit; }
 
-        .agency-info {
-            margin: 8px 0;
-            font-size: 0.95em;
-            color: var(--text-main);
-        }
+img { max-width: 100%; display: block; }
 
-        .agency-info strong {
-            color: #000;
-        }
+/* ------------------------------ Thanh điều hướng ------------------------------ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  background: var(--primary);
+  padding: 14px 28px;
+  border-bottom: 3px solid var(--gold);
+}
 
-        /* Nút xem vị trí trên bản đồ */
-        .map-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #ffffff;
-            background-color: var(--accent-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: background-color 0.2s ease;
-        }
+.navbar .logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  color: var(--paper);
+  text-decoration: none;
+}
 
-        .map-link:hover {
-            background-color: var(--primary-color);
-        }
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
 
-        /* Biểu tượng vị trí */
-        .icon-pin {
-            margin-right: 8px;
-        }
+.nav-links a {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 13.5px;
+  color: #EFE8D6;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
 
-    </style>
-</head>
-<body>
+.nav-links a:hover,
+.nav-links a.active {
+  background: rgba(251, 248, 241, 0.14);
+  color: var(--paper);
+}
 
-    <!-- THANH MENU ĐẦU TRANG (Đã có trong CSS.CSS) -->
-    <header class="header">
-        <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
-        <nav class="nav">
-            <a href="co-quan-hanh-chinh.html" class="active">Cơ quan hành chính</a>
-            <a href="benh-vien.html">Bệnh viện</a>
-            <a href="truong-hoc.html">Trường học các cấp</a>
-            <a href="tham-quan-du-lich.html">Điểm tham quan du lịch</a>
-        </nav>
-    </header>
+.nav-links a.active {
+  background: var(--gold);
+  color: #2a2210;
+  font-weight: 600;
+}
 
-    <!-- PHẦN TIÊU ĐỀ TRANG CON -->
-    <div class="page-header">
-        <h1 class="page-title">CƠ QUAN HÀNH CHÍNH</h1>
-        <p class="page-subtitle">Danh sách địa chỉ và thông tin liên hệ các cơ quan nhà nước, đơn vị hành chính công trên địa bàn huyện Quốc Oai.</p>
-    </div>
+/* ------------------------------ Hero (trang chủ) ------------------------------ */
+.hero-banner {
+  background:
+    radial-gradient(ellipse at top right, rgba(173,138,78,0.25), transparent 55%),
+    var(--primary);
+  color: var(--paper);
+  padding: 46px 24px 40px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+}
 
-    <!-- NỘI DUNG CHÍNH: DANH SÁCH THẺ (CARDS GRID) -->
-    <main class="cards-grid">
-        
-        <!-- THẺ 1 -->
-        <div class="agency-card">
-            <h3 class="agency-name">UBND Huyện Quốc Oai</h3>
-            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843110</p>
-            <p class="agency-info"><strong>Lĩnh vực:</strong> Quản lý nhà nước cấp huyện</p>
-            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
-        </div>
+.hero-banner .eyebrow {
+  font-size: 12.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
 
-        <!-- THẺ 2 -->
-        <div class="agency-card">
-            <h3 class="agency-name">Công an Huyện Quốc Oai</h3>
-            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843113</p>
-            <p class="agency-info"><strong>Chức năng:</strong> Đảm bảo an ninh trật tự</p>
-            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
-        </div>
+.hero-banner h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.3;
+  margin: 0 0 14px;
+  color: #FBF8F1;
+}
 
-        <!-- THẺ 3 -->
-        <div class="agency-card">
-            <h3 class="agency-name">Trung tâm Một cửa Huyện</h3>
-            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-            <p class="agency-info"><strong>Chức năng:</strong> Tiếp nhận & trả kết quả thủ tục hành chính</p>
-            <p class="agency-info"><strong>Dịch vụ:</strong> Công chứng, Đất đai, Kinh doanh...</p>
-            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
-        </div>
+.hero-banner p {
+  font-size: 14.5px;
+  color: #DCD3B8;
+  max-width: 680px;
+  margin: 0 auto;
+}
 
-        <!-- THẺ 4 -->
-        <div class="agency-card">
-            <h3 class="agency-name">Bảo hiểm Xã hội Huyện Quốc Oai</h3>
-            <p class="agency-info"><strong>Vị trí:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-            <p class="agency-info"><strong>Điện thoại:</strong> 024.33843115</p>
-            <p class="agency-info"><strong>Chức năng:</strong> Quản lý BHXH, BHYT</p>
-            <a href="index.html" class="map-link"><span class="icon-pin">📍</span>Xem vị trí trên bản đồ</a>
-        </div>
+/* ------------------------------ Tiêu đề trang con ------------------------------ */
+.page-header {
+  background: var(--card);
+  padding: 34px 24px 28px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
 
-        <!-- Chị có thể copy thêm thẻ mới tại đây -->
+.page-header .eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
 
-    </main>
+.page-title {
+  font-family: var(--font-display);
+  color: var(--primary);
+  margin: 0;
+  font-size: clamp(22px, 3.4vw, 30px);
+}
 
-</body>
-</html>
+.page-subtitle {
+  color: var(--ink-soft);
+  margin: 10px auto 0;
+  font-size: 14.5px;
+  max-width: 620px;
+}
+
+/* ------------------------------ Bố cục chung ------------------------------ */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 36px 24px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--primary);
+  letter-spacing: 0.3px;
+  margin: 0 0 16px;
+}
+
+/* ------------------------------ Lưới thẻ danh mục (trang chủ) ------------------------------ */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  max-width: 1180px;
+  margin: -24px auto 0;
+  padding: 0 24px 40px;
+}
+
+.category-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--cat, var(--primary));
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.category-card h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--primary);
+  margin: 0 0 6px;
+}
+
+.category-card p {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+  min-height: 32px;
+}
+
+/* ------------------------------ Nhãn chuyên mục (badge) ------------------------------ */
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: #fff;
+  background: var(--cat, var(--primary));
+}
+
+.badge-hc { --cat: var(--c-hc); }
+.badge-yt { --cat: var(--c-yt); }
+.badge-gd { --cat: var(--c-gd); }
+.badge-dl { --cat: var(--c-dl); }
+.badge-kh { --cat: var(--c-kh); }
+
+.cat-hc { --cat: var(--c-hc); }
+.cat-yt { --cat: var(--c-yt); }
+.cat-gd { --cat: var(--c-gd); }
+.cat-dl { --cat: var(--c-dl); }
+.cat-kh { --cat: var(--c-kh); }
+
+/* ------------------------------ Lưới thẻ địa điểm (trang chuyên mục) ------------------------------ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+}
+
+.place-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--cat, var(--primary));
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.place-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.place-name {
+  font-family: var(--font-display);
+  color: var(--primary);
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.place-info {
+  margin: 6px 0;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.place-info strong {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  color: #fff;
+  background: var(--cat, var(--primary-light));
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 12.5px;
+  transition: filter 0.15s ease;
+}
+
+.map-link:hover { filter: brightness(1.1); }
+
+/* ------------------------------ Bố cục bản đồ + danh sách ------------------------------ */
+.map-frame {
+  display: flex;
+  min-height: 480px;
+  border-top: 1px solid var(--line);
+}
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 20px;
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--primary);
+  margin: 0 0 14px;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar li a,
+.sidebar li {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 6px;
+  border-left: 3px solid var(--cat, var(--primary));
+  background: var(--paper);
+  font-size: 13px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+#map {
+  flex: 1;
+  min-height: 480px;
+}
+
+/* ------------------------------ Chân trang ------------------------------ */
+.site-footer {
+  background: var(--primary);
+  color: #C9C1A6;
+  text-align: center;
+  padding: 22px 24px;
+  font-size: 12.5px;
+  border-top: 3px solid var(--gold);
+}
+
+.site-footer strong { color: var(--paper); }
+
+/* ------------------------------ Responsive ------------------------------ */
+@media (max-width: 720px) {
+  .navbar { flex-direction: column; align-items: flex-start; }
+  .map-frame { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--line); }
+  #map { min-height: 340px; }
+}

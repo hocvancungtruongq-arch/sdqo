@@ -1,62 +1,69 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cơ quan Hành chính - Sơ đồ Quốc Oai</title>
-    <link rel="stylesheet" href="css.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cơ quan Hành chính — Sơ Đồ Quốc Oai</title>
+  <link rel="stylesheet" href="css.css">
 </head>
 <body>
 
-    <!-- Thanh điều hướng đầu trang -->
-    <header class="header">
-        <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
-        <nav class="nav">
-            <a href="co-quan-hanh-chinh.html" class="active">Cơ quan hành chính</a>
-            <a href="benh-vien.html">Bệnh viện</a>
-            <a href="truong-hoc.html">Trường học các cấp</a>
-            <a href="tham-quan-du-lich.html">Điểm tham quan du lịch</a>
-        </nav>
-    </header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
+    <ul class="nav-links">
+      <li><a href="co-quan-hanh-chinh.html" class="active">Cơ quan hành chính</a></li>
+      <li><a href="benh-vien.html">Bệnh viện</a></li>
+      <li><a href="truong-hoc.html">Trường học các cấp</a></li>
+      <li><a href="du-lich.html">Điểm tham quan du lịch</a></li>
+      <li><a href="khac.html">Khác</a></li>
+    </ul>
+  </nav>
 
-    <!-- Nội dung chính -->
-    <main class="container" style="padding: 30px 20px;">
-        <h1 style="color: #1b4332; margin-bottom: 10px;">DANH SÁCH CƠ QUAN HÀNH CHÍNH</h1>
-        <p style="margin-bottom: 25px; color: #555;">Tra cứu địa chỉ và thông tin liên hệ các cơ quan nhà nước trên địa bàn huyện Quốc Oai.</p>
+  <header class="page-header">
+    <div class="eyebrow">Mục 1</div>
+    <h1 class="page-title">Cơ quan Hành chính</h1>
+    <p class="page-subtitle">Danh sách địa chỉ và thông tin liên hệ các cơ quan nhà nước, đơn vị hành chính công trên địa bàn huyện Quốc Oai.</p>
+  </header>
 
-        <!-- Danh sách thẻ địa điểm -->
-        <div class="list-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-            
-            <div class="card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #1b4332;">
-                <h3 style="margin-top:0; color: #1b4332;">UBND Huyện Quốc Oai</h3>
-                <p><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-                <p><strong>Điện thoại:</strong> 024.33843110</p>
-                <a href="index.html" style="color: #2d6a4f; font-weight: bold; text-decoration: none;">📍 Xem vị trí trên bản đồ</a>
-            </div>
+  <main class="cards-grid">
+    <div class="place-card cat-hc">
+      <h3 class="place-name">UBND Huyện Quốc Oai</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+      <p class="place-info"><strong>Điện thoại:</strong> 024.33843110</p>
+      <p class="place-info"><strong>Lĩnh vực:</strong> Quản lý nhà nước cấp huyện</p>
+      <a href="index.html" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
 
-            <div class="card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #1b4332;">
-                <h3 style="margin-top:0; color: #1b4332;">Công an Huyện Quốc Oai</h3>
-                <p><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-                <p><strong>Điện thoại:</strong> 024.33843113</p>
-                <a href="index.html" style="color: #2d6a4f; font-weight: bold; text-decoration: none;">📍 Xem vị trí trên bản đồ</a>
-            </div>
+    <div class="place-card cat-hc">
+      <h3 class="place-name">Công an Huyện Quốc Oai</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+      <p class="place-info"><strong>Điện thoại:</strong> 024.33843113</p>
+      <p class="place-info"><strong>Chức năng:</strong> Đảm bảo an ninh trật tự</p>
+      <a href="index.html" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
 
-            <div class="card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #1b4332;">
-                <h3 style="margin-top:0; color: #1b4332;">Trung tâm Một cửa Huyện</h3>
-                <p><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-                <p><strong>Chức năng:</strong> Tiếp nhận & trả kết quả thủ tục hành chính</p>
-                <a href="index.html" style="color: #2d6a4f; font-weight: bold; text-decoration: none;">📍 Xem vị trí trên bản đồ</a>
-            </div>
+    <div class="place-card cat-hc">
+      <h3 class="place-name">Trung tâm Một cửa Huyện</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+      <p class="place-info"><strong>Chức năng:</strong> Tiếp nhận &amp; trả kết quả thủ tục hành chính</p>
+      <p class="place-info"><strong>Dịch vụ:</strong> Công chứng, Đất đai, Kinh doanh...</p>
+      <a href="index.html" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
 
-            <div class="card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #1b4332;">
-                <h3 style="margin-top:0; color: #1b4332;">Bảo hiểm Xã hội Huyện Quốc Oai</h3>
-                <p><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
-                <p><strong>Điện thoại:</strong> 024.33843115</p>
-                <a href="index.html" style="color: #2d6a4f; font-weight: bold; text-decoration: none;">📍 Xem vị trí trên bản đồ</a>
-            </div>
+    <div class="place-card cat-hc">
+      <h3 class="place-name">Bảo hiểm Xã hội Huyện Quốc Oai</h3>
+      <p class="place-info"><strong>Địa chỉ:</strong> Thị trấn Quốc Oai, Huyện Quốc Oai, Hà Nội</p>
+      <p class="place-info"><strong>Điện thoại:</strong> 024.33843115</p>
+      <p class="place-info"><strong>Chức năng:</strong> Quản lý BHXH, BHYT</p>
+      <a href="index.html" class="map-link">📍 Xem trên bản đồ</a>
+    </div>
 
-        </div>
-    </main>
+    <!-- Chị copy thêm .place-card tại đây nếu cần -->
+  </main>
+
+  <footer class="site-footer">
+    <strong>Sơ Đồ Quốc Oai</strong> · Cổng thông tin tra cứu địa danh huyện Quốc Oai · 2026
+  </footer>
 
 </body>
 </html>

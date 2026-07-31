@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Điểm tham quan du lịch — Sơ Đồ Quốc Oai</title>
+  <link rel="stylesheet" href="css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
+    <ul class="nav-links">
+      <li><a href="co-quan-hanh-chinh.html">Cơ quan hành chính</a></li>
+      <li><a href="benh-vien.html">Bệnh viện</a></li>
+      <li><a href="truong-hoc.html">Trường học các cấp</a></li>
+      <li><a href="du-lich.html" class="active">Điểm tham quan du lịch</a></li>
+      <li><a href="khac.html">Khác</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="eyebrow">Mục 4</div>
+    <h1 class="page-title">Điểm tham quan du lịch</h1>
+    <p class="page-subtitle">Danh thắng và di tích lịch sử — chùa cổ, núi non gắn với huyện Quốc Oai và vùng phụ cận.</p>
+  </header>
+
+  <div class="map-frame">
+    <aside class="sidebar cat-dl">
+      <h2>Danh thắng &amp; Di tích</h2>
+      <ul>
+        <li>Chùa Thầy &amp; Núi Sài Sơn — Di tích quốc gia đặc biệt</li>
+        <li>Chùa Tây Phương — Thạch Thất (giáp ranh)</li>
+        <li>Chùa Trăm Gian — Chương Mỹ (giáp ranh)</li>
+      </ul>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <footer class="site-footer">
+    <strong>Sơ Đồ Quốc Oai</strong> · Cổng thông tin tra cứu địa danh huyện Quốc Oai · 2026
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+    const map = L.map('map').setView([21.0150, 105.6300], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const dl = [
+      { name: "Chùa Thầy & Núi Sài Sơn", lat: 21.0228, lng: 105.6455 },
+      { name: "Chùa Tây Phương", lat: 21.0281, lng: 105.5968 },
+      { name: "Chùa Trăm Gian", lat: 20.9572, lng: 105.6608 }
+    ];
+    dl.forEach(p => {
+      L.marker([p.lat, p.lng]).addTo(map).bindPopup(`<b>${p.name}</b>`);
+    });
+  </script>
+</body>
+</html>

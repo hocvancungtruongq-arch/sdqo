@@ -3,89 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cổng Thông Tin Sơ Đồ & Địa Danh Huyện Quốc Oai</title>
- <link rel="stylesheet" href="css.css">
-  <!-- Thư viện bản đồ Leaflet -->
+  <title>Sơ Đồ Quốc Oai — Cổng thông tin sơ đồ &amp; địa danh</title>
+  <meta name="description" content="Tra cứu nhanh vị trí cơ quan hành chính, bệnh viện, trường học và điểm du lịch trên địa bàn huyện Quốc Oai.">
+  <link rel="stylesheet" href="css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <style>
-    /* Bố cục trang chủ */
-    .hero-banner {
-      background: var(--primary);
-      color: var(--paper);
-      padding: 25px 20px;
-      text-align: center;
-      border-bottom: 3px solid var(--accent);
-    }
-    .hero-banner h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 22px;
-      margin-bottom: 8px;
-      color: #FBF8F1;
-    }
-    .hero-banner p {
-      font-size: 13px;
-      color: var(--gold-soft);
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-
-    .main-layout {
-      display: flex;
-      height: calc(100vh - 150px);
-    }
-
-    /* Danh mục nhanh ở Trang chủ */
-    .quick-categories {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .category-card {
-      background: var(--card);
-      border: 1px solid #D8CDAE;
-      border-left: 4px solid var(--accent);
-      padding: 10px 12px;
-      border-radius: 4px;
-      text-decoration: none;
-      color: var(--text-dark);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .category-card:hover {
-      transform: translateX(4px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .category-card h3 {
-      font-size: 13.5px;
-      color: var(--primary);
-      margin-bottom: 3px;
-    }
-    .category-card p {
-      font-size: 11px;
-      color: #666;
-      margin: 0;
-    }
-
-    .stat-badge {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 9.5px;
-      font-weight: bold;
-      padding: 1px 6px;
-      border-radius: 3px;
-      color: #fff;
-    }
-    .bg-hc { background: #C0392B; }
-    .bg-yt { background: #27AE60; }
-    .bg-gd { background: #2980B9; }
-    .bg-dl { background: #AD8A4E; }
-    .bg-kh { background: #7F8C8D; }
-  </style>
 </head>
 <body>
 
-  <!-- 1. Thanh điều hướng chuẩn 5 mục -->
   <nav class="navbar">
     <a href="index.html" class="logo">SƠ ĐỒ QUỐC OAI</a>
     <ul class="nav-links">
@@ -97,101 +21,83 @@
     </ul>
   </nav>
 
-  <!-- 2. Tiêu đề Trang chủ -->
   <header class="hero-banner">
-    <h1>HỆ THỐNG SƠ ĐỒ & BẢN ĐỒ TƯƠNG TÁC HUYỆN QUỐC OAI</h1>
+    <div class="eyebrow">Huyện Quốc Oai · Hà Nội</div>
+    <h1>Hệ thống sơ đồ &amp; bản đồ tương tác<br>huyện Quốc Oai</h1>
     <p>Tra cứu nhanh vị trí các cơ quan hành chính, cơ sở y tế, trường học và danh lam thắng cảnh lịch sử trên địa bàn huyện Quốc Oai và khu vực lân cận.</p>
   </header>
 
-  <!-- 3. Khu vực Bản đồ & Danh mục nhanh -->
-  <div class="main-layout">
-    <aside class="sidebar">
-      <h2 style="font-size: 15px; color: var(--primary); margin-bottom: 12px; font-family: Georgia, serif;">
-        Chuyên mục tra cứu
-      </h2>
+  <section class="category-grid">
+    <a href="co-quan-hanh-chinh.html" class="category-card cat-hc">
+      <h3>Cơ quan Hành chính</h3>
+      <p>UBND Huyện, Công an, Trung tâm một cửa, UBND các xã...</p>
+      <span class="badge badge-hc">Hành chính</span>
+    </a>
 
-      <div class="quick-categories">
-        <a href="co-quan-hanh-chinh.html" class="category-card" style="border-left-color: #C0392B;">
-          <h3>Cơ quan Hành chính</h3>
-          <p>UBND Huyện, Công an, Trung tâm một cửa, UBND các xã...</p>
-          <span class="stat-badge bg-hc">Hành chính</span>
-        </a>
+    <a href="benh-vien.html" class="category-card cat-yt">
+      <h3>Bệnh viện &amp; Trạm xá</h3>
+      <p>Bệnh viện Đa khoa huyện, Trạm y tế các xã, thôn...</p>
+      <span class="badge badge-yt">Y tế</span>
+    </a>
 
-        <a href="benh-vien.html" class="category-card" style="border-left-color: #27AE60;">
-          <h3>Bệnh viện & Trạm xá</h3>
-          <p>Bệnh viện Đa khoa huyện, Trạm y tế các xã, thôn...</p>
-          <span class="stat-badge bg-yt">Y tế</span>
-        </a>
+    <a href="truong-hoc.html" class="category-card cat-gd">
+      <h3>Trường học các cấp</h3>
+      <p>Trường Mầm non, Cấp 1, Cấp 2, Cấp 3 THPT...</p>
+      <span class="badge badge-gd">Giáo dục</span>
+    </a>
 
-        <a href="truong-hoc.html" class="category-card" style="border-left-color: #2980B9;">
-          <h3>Trường học các cấp</h3>
-          <p>Trường Mầm non, Cấp 1, Cấp 2, Cấp 3 THPT...</p>
-          <span class="stat-badge bg-gd">Giáo dục</span>
-        </a>
+    <a href="du-lich.html" class="category-card cat-dl">
+      <h3>Điểm tham quan du lịch</h3>
+      <p>Chùa Thầy, Chùa Tây Phương, Chùa Trăm Gian...</p>
+      <span class="badge badge-dl">Du lịch</span>
+    </a>
 
-        <a href="du-lich.html" class="category-card" style="border-left-color: #AD8A4E;">
-          <h3>Điểm tham quan du lịch</h3>
-          <p>Chùa Thầy, Chùa Tây Phương, Chùa Trăm Gian...</p>
-          <span class="stat-badge bg-dl">Du lịch</span>
-        </a>
+    <a href="khac.html" class="category-card cat-kh">
+      <h3>Khác</h3>
+      <p>Chợ trung tâm, bưu điện, bãi đỗ xe, điểm dân cư...</p>
+      <span class="badge badge-kh">Khác</span>
+    </a>
+  </section>
 
-        <a href="khac.html" class="category-card" style="border-left-color: #7F8C8D;">
-          <h3>Khác</h3>
-          <p>Chợ trung tâm, bưu điện, bãi đỗ xe, điểm dân cư...</p>
-          <span class="stat-badge bg-kh">Khác</span>
-        </a>
-      </div>
-    </aside>
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <h2 class="section-title">Bản đồ tổng hợp toàn huyện</h2>
+    </div>
+    <div id="map" style="height:480px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);"></div>
+  </section>
 
-    <!-- Bản đồ tổng hợp toàn bộ các điểm -->
-    <div id="map"></div>
-  </div>
+  <footer class="site-footer">
+    <strong>Sơ Đồ Quốc Oai</strong> · Cổng thông tin tra cứu địa danh huyện Quốc Oai · 2026
+  </footer>
 
-  <!-- Thư viện bản đồ Leaflet JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script>
-    // Tất cả địa điểm tổng hợp hiển thị ở trang chủ
     const allLocations = [
-      // Hành chính
-      { name: "UBND Huyện Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9944, lng: 105.6401, color: "#C0392B" },
-      { name: "Công an Huyện Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9931, lng: 105.6395, color: "#C0392B" },
-      // Y tế
-      { name: "Bệnh viện Đa khoa Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9912, lng: 105.6380, color: "#27AE60" },
-      { name: "Trạm Y tế Xã Sài Sơn", sub: "Xã Sài Sơn", lat: 21.0178, lng: 105.6485, color: "#27AE60" },
-      // Giáo dục
-      { name: "Trường THPT Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9960, lng: 105.6368, color: "#2980B9" },
-      { name: "Trường THCS Sài Sơn", sub: "Xã Sài Sơn", lat: 21.0190, lng: 105.6470, color: "#2980B9" },
-      // Du lịch
+      { name: "UBND Huyện Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9944, lng: 105.6401, color: "#B3492B" },
+      { name: "Công an Huyện Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9931, lng: 105.6395, color: "#B3492B" },
+      { name: "Bệnh viện Đa khoa Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9912, lng: 105.6380, color: "#2F7A52" },
+      { name: "Trạm Y tế Xã Sài Sơn", sub: "Xã Sài Sơn", lat: 21.0178, lng: 105.6485, color: "#2F7A52" },
+      { name: "Trường THPT Quốc Oai", sub: "Thị trấn Quốc Oai", lat: 20.9960, lng: 105.6368, color: "#2A6F97" },
+      { name: "Trường THCS Sài Sơn", sub: "Xã Sài Sơn", lat: 21.0190, lng: 105.6470, color: "#2A6F97" },
       { name: "Chùa Thầy & Núi Sài Sơn", sub: "Di tích quốc gia đặc biệt", lat: 21.0228, lng: 105.6455, color: "#AD8A4E" },
       { name: "Chùa Tây Phương", sub: "Thạch Thất (Giáp ranh)", lat: 21.0281, lng: 105.5968, color: "#AD8A4E" },
       { name: "Chùa Trăm Gian", sub: "Chương Mỹ (Giáp ranh)", lat: 20.9572, lng: 105.6608, color: "#AD8A4E" }
     ];
 
-    // Khởi tạo bản đồ trung tâm huyện Quốc Oai
     const map = L.map('map').setView([21.0020, 105.6350], 13);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Ghim tất cả các điểm lên bản đồ trang chủ
     allLocations.forEach(loc => {
       const icon = L.divIcon({
         className: '',
-        html: `<div style="
-          background:${loc.color};
-          width:16px;height:16px;
-          border-radius:50%;
-          border:2px solid #ffffff;
-          box-shadow:0 2px 4px rgba(0,0,0,.4);"></div>`,
+        html: `<div style="background:${loc.color};width:16px;height:16px;border-radius:50%;border:2px solid #ffffff;box-shadow:0 2px 4px rgba(0,0,0,.4);"></div>`,
         iconSize: [16, 16],
         iconAnchor: [8, 8]
       });
-
-      L.marker([loc.lat, loc.lng], { icon })
-        .addTo(map)
-        .bindPopup(`<b>${loc.name}</b><br>${loc.sub}`);
+      L.marker([loc.lat, loc.lng], { icon }).addTo(map).bindPopup(`<b>${loc.name}</b><br>${loc.sub}`);
     });
   </script>
 </body>
