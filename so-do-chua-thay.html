@@ -191,12 +191,6 @@
 <script>
 const stops = [
   {
-    name: "Đường Từ Đạo Hạnh",
-    sub: "Trục đường chính dẫn vào khu di tích",
-    lat: 21.0213855, lng: 105.6462976,
-    zone: "duong"
-  },
-  {
     name: "Bãi đỗ xe Chùa Thầy",
     sub: "Gửi xe, cách cổng khoảng 300-400m",
     lat: 21.0195691, lng: 105.6430943,
@@ -209,22 +203,30 @@ const stops = [
     zone: "chan"
   },
   {
-    name: "Cầu Nhật Nguyệt Tiên Kiều",
-    sub: "Hai cầu \u201cthượng gia hạ kiều\u201d bắc qua hồ Long Trì (vị trí ước lượng)",
-    lat: 21.0226502, lng: 105.645515,
-    zone: "chan"
+    name: "Đường Từ Đạo Hạnh",
+    sub: "Trục đường chính dẫn vào khu di tích",
+    lat: 21.0213855, lng: 105.6462976,
+    zone: "duong"
   },
   {
     name: "Thủy Đình",
     sub: "Giữa hồ Long Trì, nơi múa rối nước",
     lat: 21.0222888, lng: 105.6456008,
-    zone: "chan"
+    zone: "chan",
+    skipRoute: true
   },
   {
     name: "Cổng vào Chùa",
     sub: "Mua vé tham quan tại đây",
     lat: 21.023018, lng: 105.6462825,
     zone: "chan"
+  },
+  {
+    name: "Cầu Nhật Nguyệt Tiên Kiều",
+    sub: "Hai cầu \u201cthượng gia hạ kiều\u201d bắc qua hồ Long Trì (vị trí ước lượng)",
+    lat: 21.0229366, lng: 105.6458865,
+    zone: "chan",
+    skipRoute: true
   },
   {
     name: "Chùa Cả",
@@ -235,7 +237,7 @@ const stops = [
   {
     name: "Chùa Cao",
     sub: "Còn gọi Đỉnh Sơn Tự, lưng chừng núi (vị trí ước lượng)",
-    lat: 21.0233, lng: 105.6438,
+    lat: 21.022352, lng: 105.643894,
     zone: "nui"
   },
   {
@@ -280,8 +282,29 @@ L.control.scale({metric:true, imperial:false, position:'bottomright'}).addTo(map
 
 const markers = [];
 const latlngs = stops.map(s => [s.lat, s.lng]);
+const routeLatlngs = [];
+stops.forEach(s => {
+  if (s.skipRoute) return;
+  routeLatlngs.push([s.lat, s.lng]);
+  if (s.name === "Cổng vào Chùa") {
+    // Đi vòng tránh điểm số 6 (Cầu Nhật Nguyệt Tiên Kiều) bằng phía trên (đất), không đi qua mặt hồ phía dưới
+    routeLatlngs.push([21.0231600, 105.6461500]);
+    routeLatlngs.push([21.0231300, 105.6456700]);
+  }
+});
 
-L.polyline(latlngs, {
+L.polyline(routeLatlngs, {
+  color: '#AD8A4E',
+  weight: 3,
+  opacity: 0.85,
+  dashArray: '2 8',
+  lineCap: 'round'
+}).addTo(map);
+
+// Nhánh riêng: Cầu Nhật Nguyệt Tiên Kiều chỉ nối với Chùa Cả
+const cauStop = stops.find(s => s.name === "Cầu Nhật Nguyệt Tiên Kiều");
+const chuaCaStop = stops.find(s => s.name === "Chùa Cả");
+L.polyline([[cauStop.lat, cauStop.lng], [chuaCaStop.lat, chuaCaStop.lng]], {
   color: '#AD8A4E',
   weight: 3,
   opacity: 0.85,
